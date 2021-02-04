@@ -1,0 +1,83 @@
+{
+    "n_gpu": 1,
+    "experts": {
+        "text_feat": "glove",
+        "text_dim": 300,
+        "modalities": [
+            "im_feat",
+            "inter-1",
+            "spatial0",
+            "spatial1",
+            "spatial2",
+            "spatial3",
+            "spatial4"
+        ],
+        "ce_shared_dim": 1024
+    },
+    "data_loader": {
+        "type": "ExpertDataLoader",
+        "args": {
+            "dataset_name": "CE",
+            "data_dir": "dataset/fashioniq",
+            "categories": [
+                "dress",
+                "shirt",
+                "toptee"
+            ],
+            "batch_size": 32,
+            "num_workers": 6,
+            "max_text_words": 30,
+            "max_expert_tokens": 45,
+            "mode": "train",
+            "use_val": false
+        }
+    },
+    "arch": {
+        "type": "CENet",
+        "args": {
+            "backbone": "resnet",
+            "backbone_pretrain": "imagenet",
+            "composition": "tirg",
+            "correction": "fd",
+            "fusion": "hadamard",
+            "norm_scale": 5.0,
+            "text_pooling_module": "sharedconv",
+            "metric_fn": "ip"
+        },
+        "joint_loss": "cyc3",
+        "joint_weight": 0.5,
+        "joint_epoch":0
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args": {
+            "lr": 0.0002,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": {
+        "type": "AdditiveMarginSoftmax",
+        "args":{}
+    },
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 1,
+            "gamma": 0.95
+        }
+    },
+    "trainer": {
+        "epochs": 100,
+        "save_dir": "logdir",
+        "save_period": 10,
+        "monitor": "max comb_avg",
+        "include_optim_in_ckpts": true,
+        "skip_first_n_saves": 0,
+        "num_keep_ckpts": 5,
+        "largest": true,
+        "val_epoch": 10,
+        "early_stop": 15,
+        "train_type": "joint"
+    }
+}
