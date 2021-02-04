@@ -52,9 +52,6 @@ python gen_shoe_cap.py
 python resize_img.py
 ```
 
-### Checkpoints
-You can download Fashion IQ checkpoint [here](), Shoe [here]()
-
 
 ## How to Run the code
 
