@@ -55,7 +55,7 @@ python resize_img.py
 
 ## How to Run the code
 
-### Evalutaion
+### Evaluation
 For evaluation, first download checkpoint and config.json file from [Fashion IQ](https://drive.google.com/drive/folders/1wgygqF095Di67EaHaGOXbwh3wEzk9izB?usp=sharing), [Shoe](https://drive.google.com/drive/folders/1saN1IhZ_fGOTfRMhoJ6QVVvi8Vj57mZn?usp=sharing) under `./logdir/fashioniq_dcnet`, `./logdir/shoe_dcnet` respectively.
 Then run below,
 ```
